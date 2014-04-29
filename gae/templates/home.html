@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Google Play Games Services Management Tools</title>
+    <meta name="description" content="">
+    <meta name="author" content="YHSoftLab">
+    <meta name="keywords" content="">
+
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style type="text/css">
+        @media (min-width: 981px) {
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6. chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 8]>
+        <p class=chromeframe>Your browser is <em>ancient!</em><a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true"> install Google Chrome Frame</a> to experience this site.</p>
+    <![endif]-->
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-chevron-down icon-white"></span>
+                </button>
+                 <!-- Be sure to leave the brand out there if you want it shown -->
+                <a class="brand" href="#">GPG Manager</a>
+                <!-- Everything you want hidden at 940px or less, place within here -->
+                <div class="nav-collapse collapse">
+                    <ul class="nav pull-right">
+                        <li><a href="#" target="_blank">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="content" class="container container-fluid">
+        <div id="appForm" class="collapse">
+            <form class="form-horizontal" action="/" method="post">
+                <fieldset>
+                    <legend>Create App Details</legend>
+                    <div class="control-group">
+                        <label class="control-label">Display name</label>
+                        <div class="controls">
+                            <input type="text" name="display_name" required="true" placeholder="My awsome project">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">API project id</label>
+                        <div class="controls">
+                            <input type="text" name="app_id" required="true" placeholder="567890123456 ">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Client id</label>
+                        <div class="controls">
+                            <input type="text" class="input-xxlarge" name="client_id" required="true" placeholder="567890123456-abcdefghijklmnoprstuvwxyzABCDEF.apps.googleusercontent.com">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Any leaderboard id</label>
+                        <div class="controls">
+                            <input type="text" name="leaderboard_id" required="true" placeholder="CgkIxyzA1B2C3D4E5F6">
+                        </div>
+                    </div>
+                    <button class="input btn btn-primary pull-right" value="submit">New App</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <h1>App list
+            <button type="button" id="showHideBtn" class="btn btn-info pull-right" data-toggle="collapse" data-target="#appForm">
+                <i id="toggleFormBtnIcon" class="icon-chevron-down icon-white"></i><span id="toggleFormBtnText">Show form</span>
+            </button>
+        </h1>
+
+        {% if details %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in details %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ detail['DISPLAY_NAME'] }}</td>
+                    <td><a class="btn btn-small input-normal" href="/?id={{ detail.APP_ID }}&act=hide"><span class="icon-eye-close"></span>Hide player</a>
+                        <a class="btn btn-small input-normal" href="/?id={{ detail.APP_ID }}&act=achievements"><span class="icon-refresh"></span>Test Achievements</a>
+                        <a class="btn btn-small input-normal" href="/?id={{ detail.APP_ID }}&act=leaderboards"><span class="icon-trash"></span>Test Leaderboards</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </div>
+
+    <hr>
+    <footer style="text-align: center;">
+        <p>Copyright &copy; 2014 <a href="//yhsoftlab.appspot.com" target="_blank">YHSoftLab</a>, All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript at the bottom for fast page loading -->
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/jquery-2.0.2.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#appForm').on('shown', function() {
+            $('#toggleFormBtnText').text('Hide form');
+            $('#toggleFormBtnIcon').removeClass('icon-chevron-down').addClass('icon-chevron-up')
+        });
+        $('#appForm').on('hidden', function() {
+            $('#toggleFormBtnText').text('Show form');
+            $('#toggleFormBtnIcon').removeClass('icon-chevron-up').addClass('icon-chevron-down')
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+application: your-application-id
+module: default
+version: gpgmgr
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+instance_class: F1
+automatic_scaling:
+  max_idle_instances: 2
+  min_pending_latency: 15.0s
+
+builtins:
+- appstats: on
+
+handlers:
+- url: /favicon\.ico
+  static_files: gae/static/favicon.ico
+  upload: gae/static/favicon.ico
+
+- url: /apple-touch-icon\.png
+  static_files: gae/static/apple-touch-icon.png
+  upload: gae/static/apple-touch-icon.png
+
+- url: /apple-touch-icon-precomposed\.png
+  static_files: gae/static/apple-touch-icon-precomposed.png
+  upload: gae/static/apple-touch-icon-precomposed.png
+
+- url: /css
+  mime_type: text/css
+  static_dir: gae/static/css
+
+- url: /js
+  mime_type: text/javascript
+  static_dir: gae/static/js
+
+- url: /img/(.*\.(gif|png|jpg|jpeg))
+  static_files: gae/static/img/\1
+  upload: gae/static/img/(.*\.(gif|png|jpg|jpeg))
+
+- url: /robots\.txt
+  static_files: gae/static/robots.txt
+  upload: gae/static/robots.txt
+
+- url: /.*
+  script: gae.handler.APP
+  login: admin
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: "2.6"
