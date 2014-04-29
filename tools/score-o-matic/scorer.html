@@ -14,11 +14,9 @@
    limitations under the License.
 -->
 <head>
-  <link rel="stylesheet"
-        type="text/css"
-        href="style.css">
+  <style type="text/css">{% include 'score-o-matic/style.css' %}</style>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="scorer.js" type="text/javascript"></script>
+  <script type="text/javascript">{% include 'scorer.js' %}</script>
 
 </head>
 <body>
@@ -33,7 +31,7 @@
         <span
           class="g-signin"
           data-callback="signinCallback"
-          data-clientid="CLIENT_ID"
+          data-clientid="{{ CLIENT_ID }}"
           data-cookiepolicy="single_host_origin"
           data-scope="https://www.googleapis.com/auth/games">
         </span>

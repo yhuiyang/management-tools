@@ -16,7 +16,7 @@
 // Please fill these out with the values from your
 // actual game.  DON'T FORGET TO FILL OUT CLIENT_ID
 // IN scorer.html!
-var APP_ID = 'APP_ID';
+var APP_ID = '{{ APP_ID }}';
 
 // How many async loads have happened?
 var UNITS_TO_LOAD = 3;
